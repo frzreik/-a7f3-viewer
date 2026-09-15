@@ -1,13 +1,2 @@
-FINAL PATIENT-FACING IVF AR EXPERIENCE
-
-Concept:
-- One elegant floating blastocyst/early embryo
-- Soft glass-like material
-- Warm blush palette
-- Minimal interaction
-- Learn about IVF
-- About Dr. Zreik
-- No clinical needles or surgical visuals
-
-Recommended deployment URL:
-https://frzreik.github.io/-a7f3-viewer/
+This version changes the 'Book an Appointment' button to open WhatsApp directly.
+Current WhatsApp link: https://wa.me/9611350000?text=Hello%20Dr.%20Tony%20Gebran%20Zreik%2C%20I%20would%20like%20to%20book%20an%20appointment.
