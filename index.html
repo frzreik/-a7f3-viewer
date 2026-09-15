@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Science for new beginnings</title>
+<style>
+:root{
+  --ink:#183a3b;--muted:#6f8786;--cream:#f8f3ee;--blush:#e8c7bf;--rose:#c98d83;
+  --teal:#2f7f80;--glass:rgba(255,250,247,.78);--line:rgba(255,255,255,.35)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#d9cdc2}
+#app{position:fixed;inset:0}
+video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.92) brightness(.92)}
+#veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,37,36,.08),rgba(40,26,20,.18))}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.glass{background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 18px 55px rgba(48,30,24,.18)}
+#intro{position:absolute;inset:0;z-index:30;display:grid;place-items:center;padding:22px;background:
+radial-gradient(circle at 70% 15%,rgba(255,255,255,.75),transparent 25%),
+linear-gradient(145deg,#efe3da,#d8c7bb 70%,#c8b9ae)}
+.introCard{width:min(92vw,430px);padding:28px 24px 24px;border-radius:30px;background:rgba(255,250,247,.93);text-align:center;box-shadow:0 30px 90px rgba(74,49,39,.22)}
+.mark{width:74px;height:74px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:linear-gradient(145deg,#f3dcd6,#f8efeb);color:var(--rose);font-size:32px}
+.introCard h1{font-family:Georgia,serif;font-weight:500;color:var(--ink);font-size:31px;line-height:1.08;margin:8px 0}
+.name{font-size:15px;font-weight:700;color:var(--teal);letter-spacing:.01em}
+.spec{font-size:13px;color:#4f6261;margin-top:3px}
+.tagline{font-family:Georgia,serif;color:var(--rose);font-size:23px;margin:22px 0 6px}
+.subline{font-size:14px;color:var(--muted);line-height:1.45;margin:0 auto;max-width:310px}
+#startBtn{margin-top:20px;width:100%;border:0;border-radius:16px;padding:14px 18px;background:var(--teal);color:white;font-size:16px;font-weight:700}
+.pillars{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px;font-size:11px;color:var(--muted)}
+.pillars span{padding:7px 10px;border-radius:999px;background:#f3ebe6}
+#top{position:absolute;top:max(14px,env(safe-area-inset-top));left:14px;right:14px;z-index:12;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.brand{border-radius:18px;padding:12px 14px;max-width:70%}
+.brand b{display:block;color:var(--ink);font-size:14px}
+.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.badge{border-radius:999px;padding:9px 12px;font-size:11px;color:var(--ink);white-space:nowrap}
+#hint{position:absolute;top:92px;left:50%;transform:translateX(-50%);z-index:9;background:rgba(31,41,41,.56);color:#fff;border-radius:999px;padding:8px 12px;font-size:11px;backdrop-filter:blur(10px)}
+#bottom{position:absolute;left:14px;right:14px;bottom:max(14px,env(safe-area-inset-bottom));z-index:14;display:flex;gap:10px;justify-content:center}
+.action{border:1px solid rgba(255,255,255,.35);background:rgba(255,250,247,.86);backdrop-filter:blur(18px);color:var(--ink);border-radius:16px;padding:12px 16px;font-size:13px;font-weight:700;box-shadow:0 10px 30px rgba(55,35,27,.14)}
+.action.primary{background:rgba(47,127,128,.92);color:white}
+.sheet{position:absolute;left:14px;right:14px;bottom:14px;z-index:22;border-radius:26px;padding:18px;display:none;max-height:60%;overflow:auto}
+.sheet.show{display:block}
+.sheetHead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.sheet h2{font-family:Georgia,serif;font-weight:500;color:var(--ink);margin:0;font-size:24px}
+.close{border:0;background:#eee2db;width:36px;height:36px;border-radius:50%;font-size:18px;color:var(--ink)}
+.cards{display:grid;gap:10px}
+.infoCard{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.6);border-radius:18px;padding:13px}
+.infoCard b{color:var(--ink);font-size:14px}
+.infoCard p{color:var(--muted);font-size:12px;line-height:1.45;margin:5px 0 0}
+.doctorCard{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center}
+.avatar{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#efd7d0,#fbf3ef);color:var(--rose);font-size:26px}
+.doctorCard p{margin:4px 0;color:var(--muted);font-size:12px;line-height:1.45}
+@media (max-width:620px){
+  .brand{max-width:76%}
+  #bottom{display:grid;grid-template-columns:1fr 1fr}
+  .action{padding:12px 10px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="intro">
+    <div class="introCard">
+      <div class="mark">◌</div>
+      <div class="name">Dr. Tony Gebran Zreik, MD</div>
+      <div class="spec">Obstetrics & Gynecology · Fertility & IVF</div>
+      <div class="tagline">Science for new beginnings</div>
+      <p class="subline">Modern fertility care with a human touch.</p>
+      <button id="startBtn">Open AR experience</button>
+      <div class="pillars"><span>Personalized Care</span><span>Advanced Technology</span><span>Real Possibilities</span></div>
+    </div>
+  </div>
+
+  <video id="cam" autoplay muted playsinline></video>
+  <div id="veil"></div>
+  <canvas id="c"></canvas>
+
+  <div id="top">
+    <div class="brand glass"><b>Dr. Tony Gebran Zreik, MD</b><small>Fertility & IVF</small></div>
+    <div class="badge glass">AR Experience</div>
+  </div>
+
+  <div id="hint">Drag to rotate · Pinch to zoom</div>
+
+  <div id="bottom">
+    <button class="action primary" id="ivfBtn">Learn about IVF</button>
+    <button class="action" id="doctorBtn">About Dr. Zreik</button>
+  </div>
+
+  <section class="sheet glass" id="ivfSheet">
+    <div class="sheetHead"><h2>A gentle look at IVF</h2><button class="close" data-close="ivfSheet">×</button></div>
+    <div class="cards">
+      <div class="infoCard"><b>Preparing the eggs</b><p>Medication helps several eggs mature while your response is carefully monitored.</p></div>
+      <div class="infoCard"><b>Fertilization</b><p>Egg and sperm are brought together in the laboratory using the approach best suited to your case.</p></div>
+      <div class="infoCard"><b>Embryo development</b><p>Early embryos are observed for a few days as they grow in carefully controlled conditions.</p></div>
+      <div class="infoCard"><b>Transfer</b><p>A selected embryo can be placed gently into the uterus at the appropriate time.</p></div>
+      <div class="infoCard"><b>Preserving possibilities</b><p>Suitable embryos may be frozen for a future transfer when clinically appropriate.</p></div>
+    </div>
+  </section>
+
+  <section class="sheet glass" id="doctorSheet">
+    <div class="sheetHead"><h2>About Dr. Zreik</h2><button class="close" data-close="doctorSheet">×</button></div>
+    <div class="doctorCard">
+      <div class="avatar">TZ</div>
+      <div>
+        <b style="color:var(--ink)">Dr. Tony Gebran Zreik, MD</b>
+        <p>Obstetrics & Gynecology · Fertility & IVF</p>
+        <p>Focused on personalized fertility care, clear communication, and modern reproductive technology.</p>
+      </div>
+    </div>
+    <div class="infoCard" style="margin-top:12px"><b>Approach</b><p>Calm, patient-centered guidance with technology used to support—not overwhelm—the fertility journey.</p></div>
+  </section>
+</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+
+const video=document.getElementById('cam');
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth,innerHeight,false);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.15;
+
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.01,100);
+camera.position.set(0,0,6.8);
+
+scene.add(new THREE.HemisphereLight(0xfff3ed,0x1b2021,2.4));
+const key=new THREE.DirectionalLight(0xffffff,2.6);key.position.set(4,4,6);scene.add(key);
+const rim=new THREE.PointLight(0xf4b7aa,7,18);rim.position.set(-3,1.5,4);scene.add(rim);
+const tealLight=new THREE.PointLight(0x91ded5,4,18);tealLight.position.set(3,-1,4);scene.add(tealLight);
+
+const embryo=new THREE.Group();
+scene.add(embryo);
+
+const shellMat=new THREE.MeshPhysicalMaterial({
+  color:0xffeee8,roughness:.08,metalness:0,transmission:.78,thickness:.55,
+  transparent:true,opacity:.48,ior:1.32,clearcoat:.9,clearcoatRoughness:.08
+});
+const membrane=new THREE.Mesh(new THREE.SphereGeometry(1.65,96,72),shellMat);
+embryo.add(membrane);
+
+const innerShell=new THREE.Mesh(
+  new THREE.SphereGeometry(1.48,80,60),
+  new THREE.MeshPhysicalMaterial({color:0xffdcd4,roughness:.16,transmission:.42,thickness:.3,transparent:true,opacity:.22})
+);
+embryo.add(innerShell);
+
+const cellMat=new THREE.MeshPhysicalMaterial({
+  color:0xf3b0a5,roughness:.38,transmission:.05,clearcoat:.35,clearcoatRoughness:.2
+});
+const cellMat2=new THREE.MeshPhysicalMaterial({
+  color:0xe49e95,roughness:.42,transmission:.03,clearcoat:.3
+});
+
+const positions=[
+[-.50,.34,.45],[.05,.54,.30],[.53,.26,.25],[-.15,.08,.65],[.35,-.12,.55],
+[-.56,-.30,.34],[-.02,-.45,.45],[.48,-.40,.20],[-.78,.02,-.05],[-.24,.58,-.22],
+[.32,.55,-.25],[.75,.08,-.08],[-.52,-.48,-.22],[.02,-.64,-.14],[.56,-.35,-.30],
+[-.18,.04,-.50],[.24,-.02,-.55]
+];
+positions.forEach((p,i)=>{
+  const r=.34+(i%4)*.025;
+  const m=new THREE.Mesh(new THREE.SphereGeometry(r,48,36),i%3===0?cellMat2:cellMat);
+  m.position.set(...p);
+  m.scale.set(1,1,.92);
+  embryo.add(m);
+});
+
+const cavity=new THREE.Mesh(
+  new THREE.SphereGeometry(.62,56,40),
+  new THREE.MeshPhysicalMaterial({color:0xfff5f1,roughness:.03,transmission:.9,thickness:.18,transparent:true,opacity:.28})
+);
+cavity.position.set(.42,.05,-.12);
+embryo.add(cavity);
+
+const ringMat=new THREE.MeshBasicMaterial({color:0xffd7cd,transparent:true,opacity:.20,side:THREE.DoubleSide});
+for(let i=0;i<2;i++){
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(2.05+i*.18,.018,16,140),ringMat);
+  ring.rotation.x=Math.PI/2.25+i*.18;
+  ring.rotation.y=i*.5;
+  embryo.add(ring);
+}
+
+const particleGeo=new THREE.BufferGeometry();
+const count=90;
+const pts=new Float32Array(count*3);
+for(let i=0;i<count;i++){
+  const a=Math.random()*Math.PI*2, r=2.3+Math.random()*1.2;
+  pts[i*3]=Math.cos(a)*r;
+  pts[i*3+1]=(Math.random()-.5)*3.3;
+  pts[i*3+2]=(Math.random()-.5)*1.8;
+}
+particleGeo.setAttribute('position',new THREE.BufferAttribute(pts,3));
+const particles=new THREE.Points(particleGeo,new THREE.PointsMaterial({color:0xffe6dd,size:.035,transparent:true,opacity:.75}));
+embryo.add(particles);
+
+embryo.scale.setScalar(.92);
+
+let auto=true,drag=false,lastX=0,lastY=0,pinch=null;
+canvas.addEventListener('pointerdown',e=>{drag=true;lastX=e.clientX;lastY=e.clientY;auto=false});
+addEventListener('pointerup',()=>drag=false);
+addEventListener('pointermove',e=>{
+  if(!drag)return;
+  embryo.rotation.y+=(e.clientX-lastX)*.008;
+  embryo.rotation.x+=(e.clientY-lastY)*.006;
+  lastX=e.clientX;lastY=e.clientY;
+});
+function d(a,b){return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)}
+canvas.addEventListener('touchmove',e=>{
+  if(e.touches.length===2){
+    const now=d(e.touches[0],e.touches[1]);
+    if(pinch!==null){
+      const s=THREE.MathUtils.clamp(embryo.scale.x+(now-pinch)*.003,.62,1.45);
+      embryo.scale.setScalar(s);
+    }
+    pinch=now;
+  }
+},{passive:true});
+canvas.addEventListener('touchend',()=>pinch=null);
+
+async function start(){
+  document.getElementById('intro').style.display='none';
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+    video.srcObject=stream;
+  }catch(e){
+    video.style.display='none';
+    document.getElementById('veil').style.background='linear-gradient(145deg,#d9c7ba,#bba89b)';
+  }
+}
+document.getElementById('startBtn').onclick=start;
+
+function openSheet(id){
+  document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+}
+document.getElementById('ivfBtn').onclick=()=>openSheet('ivfSheet');
+document.getElementById('doctorBtn').onclick=()=>openSheet('doctorSheet');
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.close).classList.remove('show'));
+
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}
+addEventListener('resize',resize);
+
+let t=0;
+function animate(){
+  requestAnimationFrame(animate);
+  t+=.01;
+  if(auto)embryo.rotation.y+=.0038;
+  embryo.position.y=Math.sin(t*.85)*.06;
+  particles.rotation.y+=.0015;
+  renderer.render(scene,camera);
+}
+animate();
+</script>
+</body>
+</html>
